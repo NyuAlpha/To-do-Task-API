@@ -1,4 +1,4 @@
-package com.nyualpha.tododiary.models;
+package com.nyualpha.tododiary.models.attributes;
 
 public enum Difficulty {
     EASY,

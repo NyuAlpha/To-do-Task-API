@@ -1,7 +1,9 @@
 package com.nyualpha.tododiary.models;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,8 +41,8 @@ public class Block {
 
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "block")
-    private Set<Task> tasks;
+    @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Task> tasks = new HashSet<>();
 
 
     @PrePersist

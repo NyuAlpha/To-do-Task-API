@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.nyualpha.tododiary.models.attributes.Difficulty;
+import com.nyualpha.tododiary.models.attributes.Importance;
+import com.nyualpha.tododiary.models.attributes.Status;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -67,7 +71,7 @@ public class Task {
     private Task parentTask;
 
     /*A task can have from 0 to many subtask */
-    @OneToMany(mappedBy = "parentTask" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parentTask" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Task> subtasks = new HashSet<>();
 
 
