@@ -3,7 +3,7 @@ package com.nyualpha.tododiary.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nyualpha.tododiary.dto.CreateBlockDto;
+import com.nyualpha.tododiary.dto.block.CreateBlockDto;
 import com.nyualpha.tododiary.models.Block;
 import com.nyualpha.tododiary.repositories.BlockRepository;
 

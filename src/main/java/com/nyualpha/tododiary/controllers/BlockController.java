@@ -1,14 +1,17 @@
 package com.nyualpha.tododiary.controllers;
 
 
+import java.net.URI;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.nyualpha.tododiary.dto.CreateBlockDto;
-import com.nyualpha.tododiary.dto.UpdateBlockDto;
+import com.nyualpha.tododiary.dto.block.CreateBlockDto;
+import com.nyualpha.tododiary.dto.block.ResponseBlockDto;
 import com.nyualpha.tododiary.models.Block;
 import com.nyualpha.tododiary.services.IBlockService;
 
@@ -26,27 +29,20 @@ public class BlockController {
     }
 
 
-
-
     /*
-     * Probando que funciona
+     * Creating a new block and saving it to a database
      */
     @PostMapping
-    public ResponseEntity<UpdateBlockDto> createBlock(@Valid @RequestBody CreateBlockDto createBlockDto){
+    public ResponseEntity<ResponseBlockDto> createBlock(@Valid @RequestBody CreateBlockDto createBlockDto){
 
         Block block = blockService.createBlock(createBlockDto);
+        ResponseBlockDto responseDTO = block.toResponseDto();
 
-        UpdateBlockDto responseDTO = new UpdateBlockDto();
-        responseDTO.setId(block.getId());
-        responseDTO.setName(block.getName());
-        responseDTO.setCategory(block.getCategory());
-        responseDTO.setDescription(block.getDescription());
-        responseDTO.setCreatedAt(block.getCreatedAt());
-        responseDTO.setTasks(block.getTasks());
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                    .path("/{id}")
+                                    .buildAndExpand(responseDTO.getId())
+                                    .toUri();
 
-        System.out.println(block.getName());
-
-        return ResponseEntity.ok(responseDTO);
-
+        return ResponseEntity.created(location).body(responseDTO);
     }
 }

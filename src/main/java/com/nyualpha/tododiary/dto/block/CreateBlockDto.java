@@ -1,4 +1,4 @@
-package com.nyualpha.tododiary.dto;
+package com.nyualpha.tododiary.dto.block;
 
 import com.nyualpha.tododiary.models.Block;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,14 +13,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateBlockDto {
 
-    @NotEmpty
-    @Size(max = 64)
+    @NotEmpty(message = "{CreateBlockDto.name.NotEmpty}")
+    @Size(max = 32, message = "{CreateBlockDto.name.Size}")
     private String name;
 
-    @Size(max = 64)
+    @Size(max = 32,message = "{CreateBlockDto.category.Size}")
     private String category;
 
-    @Size(max = 128)
+    @Size(max = 128,message = "{CreateBlockDto.description.Size}")
     private String description;
 
 

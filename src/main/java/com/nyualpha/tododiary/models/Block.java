@@ -3,9 +3,12 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.nyualpha.tododiary.dto.block.ResponseBlockDto;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,10 +33,10 @@ public class Block {
     @Column(name = "id")
     private Long id;
 
-    @Column(length = 64, nullable = false)
+    @Column(length = 32, nullable = false)
     private String name;
 
-    @Column(length = 64)
+    @Column(length = 32)
     private String category;
 
     @Column(length = 128)
@@ -41,12 +44,31 @@ public class Block {
 
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Task> tasks = new HashSet<>();
 
 
+    /*
+     * Creation date before persisting
+     */
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDate.now();
+    }
+
+    /*
+     * Create a DTO with read-only data.
+     */
+    public ResponseBlockDto toResponseDto(){
+
+        ResponseBlockDto dto = new ResponseBlockDto();
+        dto.setId(id);
+        dto.setName(name);
+        dto.setCategory(category);
+        dto.setDescription(description);
+        dto.setCreatedAt(createdAt);
+        dto.setTasks(tasks);
+
+        return dto;
     }
 }

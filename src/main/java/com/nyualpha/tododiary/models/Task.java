@@ -71,7 +71,7 @@ public class Task {
     private Task parentTask;
 
     /*A task can have from 0 to many subtask */
-    @OneToMany(mappedBy = "parentTask" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentTask" , cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Task> subtasks = new HashSet<>();
 
 

@@ -1,4 +1,4 @@
-package com.nyualpha.tododiary.dto;
+package com.nyualpha.tododiary.dto.block;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -28,6 +28,7 @@ public class UpdateBlockDto {
     private Long id;
 
     @NotEmpty
+    @Size(max = 32)
     private String name;
 
     @Size(max = 32)
@@ -39,9 +40,7 @@ public class UpdateBlockDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 
-    private Set<Task> tasks;
-
-
+    
     public Block toBlock(){
 
         Block block = new Block();
