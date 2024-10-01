@@ -56,19 +56,4 @@ public class Block {
         this.createdAt = LocalDate.now();
     }
 
-    /*
-     * Create a DTO with read-only data.
-     */
-    public ResponseBlockDto toResponseDto(){
-
-        ResponseBlockDto dto = new ResponseBlockDto();
-        dto.setId(id);
-        dto.setName(name);
-        dto.setCategory(category);
-        dto.setDescription(description);
-        dto.setCreatedAt(createdAt);
-        dto.setTasks(tasks);
-
-        return dto;
-    }
 }

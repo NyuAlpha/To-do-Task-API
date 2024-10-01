@@ -23,19 +23,4 @@ public class CreateBlockDto {
     @Size(max = 128,message = "{CreateBlockDto.description.Size}")
     private String description;
 
-
-
-    public Block toBlock(){
-
-        Block block = new Block();
-
-        block.setName(name);
-        block.setCategory(category);
-        block.setDescription(description);
-
-        return block;
-    }
-
-
-
 }

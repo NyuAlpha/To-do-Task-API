@@ -71,6 +71,22 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+
+		<!-- MapStruct (para mapeo de DTOs y entidades) -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.3.Final</version> <!-- Usa la última versión -->
+		</dependency>
+
+		<!-- Procesador de Anotaciones de MapStruct -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.5.3.Final</version> <!-- Usa la última versión -->
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
