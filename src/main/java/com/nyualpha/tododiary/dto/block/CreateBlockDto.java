@@ -1,6 +1,5 @@
 package com.nyualpha.tododiary.dto.block;
 
-import com.nyualpha.tododiary.models.Block;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

@@ -40,7 +40,7 @@ public class Task {
     @Column(name = "id")
     private Long id;
 
-    @Column(length = 64, nullable = false)
+    @Column(length = 32, nullable = false)
     private String name;
 
     @Column(length = 128)
@@ -55,19 +55,21 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
+    @Column(nullable = false)
     private Integer taskOrder;
 
     private LocalDate deadline;
 
+    @Column(nullable = false)
     private LocalDate createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "block_id", nullable = false)
+    @JoinColumn(name = "block_id")
     private Block block;
 
     /* If the task belongs to a task then it doesn't belong to a block */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_task_id", nullable = true)
+    @JoinColumn(name = "parent_task_id")
     private Task parentTask;
 
     /*A task can have from 0 to many subtask */

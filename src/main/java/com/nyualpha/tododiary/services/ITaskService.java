@@ -1,8 +1,9 @@
 package com.nyualpha.tododiary.services;
 
-import com.nyualpha.tododiary.models.Task;
+import com.nyualpha.tododiary.dto.task.CreateTaskDto;
+import com.nyualpha.tododiary.dto.task.ResponseTaskDto;
 
 public interface ITaskService {
 
-    Task createTask(Task task);
+    ResponseTaskDto createTask(CreateTaskDto createTaskDto);
 }

@@ -1,6 +1,5 @@
 package com.nyualpha.tododiary.dto.block;
 
-import com.nyualpha.tododiary.models.Block;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
