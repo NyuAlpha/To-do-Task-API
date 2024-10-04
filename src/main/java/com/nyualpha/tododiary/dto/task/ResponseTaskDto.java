@@ -1,9 +1,8 @@
 package com.nyualpha.tododiary.dto.task;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import com.nyualpha.tododiary.models.Task;
+import java.util.ArrayList;
+import java.util.List;
 import com.nyualpha.tododiary.models.attributes.Difficulty;
 import com.nyualpha.tododiary.models.attributes.Importance;
 import com.nyualpha.tododiary.models.attributes.Status;
@@ -43,7 +42,7 @@ public class ResponseTaskDto {
 
     private Long parentTaskId;
 
-    private Set<Task> subtasks = new HashSet<>();
+    private List<ResponseTaskDto> subtasks = new ArrayList<>();
 
 
 }

@@ -41,7 +41,7 @@ public class Block {
 
     private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "block", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Task> tasks = new HashSet<>();
 
 

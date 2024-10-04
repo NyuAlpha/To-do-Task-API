@@ -1,6 +1,9 @@
 package com.nyualpha.tododiary.mapper;
 
+import java.util.List;
 import java.util.Set;
+
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import com.nyualpha.tododiary.dto.task.CreateTaskDto;
 import com.nyualpha.tododiary.dto.task.ResponseTaskDto;
@@ -56,8 +59,15 @@ public class TaskMapperService {
 
         if(entity.getParentTask() != null)  
             dto.setParentTaskId(entity.getParentTask().getId());
-            
-        dto.setSubtasks(entity.getSubtasks());
+     
+        if (Hibernate.isInitialized(entity.getSubtasks()) && !entity.getSubtasks().isEmpty()) {
+            List<ResponseTaskDto> subtasksDto = entity.getSubtasks()
+                                .stream()
+                                .map((subtask) -> mapEntityToResponse(subtask, new ResponseTaskDto()))
+                                .toList();
+            dto.setSubtasks(subtasksDto);
+        }
+
         dto.setCreatedAt(entity.getCreatedAt());
 
         return dto;

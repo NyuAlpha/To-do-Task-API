@@ -6,4 +6,6 @@ import com.nyualpha.tododiary.models.Block;
 
 public interface BlockRepository extends JpaRepository<Block,Long>{
 
+
+    // public Block findAllAndParentTaskIsNull(Long blockId);
 }

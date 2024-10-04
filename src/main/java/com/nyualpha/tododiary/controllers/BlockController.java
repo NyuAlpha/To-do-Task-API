@@ -2,8 +2,10 @@ package com.nyualpha.tododiary.controllers;
 
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,16 @@ public class BlockController {
     
     public BlockController(IBlockService blockService) {
         this.blockService = blockService;
+    }
+
+
+    /*
+     * Get all blocks
+     */
+    @GetMapping
+    public ResponseEntity< List<ResponseBlockDto> > getAllBlocks(){
+        return ResponseEntity.ok()
+                            .body(blockService.getAll());
     }
 
 

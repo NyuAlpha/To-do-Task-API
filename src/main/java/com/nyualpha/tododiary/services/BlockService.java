@@ -1,6 +1,9 @@
 package com.nyualpha.tododiary.services;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.nyualpha.tododiary.dto.block.CreateBlockDto;
@@ -51,5 +54,18 @@ public class BlockService implements IBlockService{
 
         return blockMapperService.mapEntityToResponse(block,new ResponseBlockDto());
     }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ResponseBlockDto> getAll() {
+        
+        return blockRepository.findAll()
+                            .stream()
+                            .map((block) -> blockMapperService.mapEntityToResponse(block, new ResponseBlockDto()))
+                            .collect(Collectors.toList());
+    }
+
+    
 
 }

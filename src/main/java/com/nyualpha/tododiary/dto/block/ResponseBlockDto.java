@@ -2,9 +2,10 @@ package com.nyualpha.tododiary.dto.block;
 
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.nyualpha.tododiary.models.Task;
+import com.nyualpha.tododiary.dto.task.ResponseTaskDto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,6 @@ public class ResponseBlockDto {
 
     private LocalDate createdAt;
 
-    private Set<Task> tasks;
+    private List<ResponseTaskDto> tasks = new ArrayList<>();
 
 }
