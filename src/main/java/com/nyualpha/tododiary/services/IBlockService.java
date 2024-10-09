@@ -13,6 +13,8 @@ public interface IBlockService {
 
     ResponseBlockDto updateBlock(UpdateBlockDto updateBlockDto);
 
+    ResponseBlockDto getBlock(Long id);
+
     List<ResponseBlockDto> getAll();
 
 }

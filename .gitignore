@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 ### Ignore the log file ###
-app.log
+*.log
 
 ### STS ###
 .apt_generated

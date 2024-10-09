@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ import com.nyualpha.tododiary.services.IBlockService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/block")
+@RequestMapping("/api/blocks")
 public class BlockController {
 
     private IBlockService blockService;
@@ -39,6 +40,16 @@ public class BlockController {
     public ResponseEntity< List<ResponseBlockDto> > getAllBlocks(){
         return ResponseEntity.ok()
                             .body(blockService.getAll());
+    }
+
+
+    /*
+     * Get a block with the given id
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseBlockDto> getBlocks(@PathVariable Long id){
+        return ResponseEntity.ok()
+                            .body(blockService.getBlock(id));
     }
 
 

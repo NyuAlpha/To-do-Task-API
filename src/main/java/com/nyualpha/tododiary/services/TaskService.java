@@ -33,25 +33,32 @@ public class TaskService implements ITaskService{
     @Transactional
     public ResponseTaskDto createTask(CreateTaskDto createTaskDto) {
         
-        Block block;
-        Task parentTask;
-        Task task;
 
-        block = blockRepository.findById(createTaskDto.getBlockId()).orElseThrow(
+        Block block = blockRepository.findById(createTaskDto.getBlockId()).orElseThrow(
             () ->new EntityNotFoundException("Block not found"));
         
-        task = taskMapperService.mapDtoToEntity(createTaskDto,block, new Task());
+        Task task = taskMapperService.mapDtoToEntity(createTaskDto);
+        
 
-        if(createTaskDto.getParentTaskId() != null){
-            parentTask = taskRepository.findById(createTaskDto.getParentTaskId()).orElseThrow(
+        Long parentTaskId = createTaskDto.getParentTaskId();
+        if(parentTaskId != null){
+
+            Task parentTask = taskRepository.findById(createTaskDto.getParentTaskId()).orElseThrow(
                 () ->new EntityNotFoundException("ParentTask not found"));
 
-            task = taskMapperService.addParentTask(task, parentTask);
+            /*First we assign the order to prever error DataIntegrityViolationException */
+            task.setTaskOrder(taskRepository.getOrderByBlockIdAndParentTask(createTaskDto.getBlockId(), parentTaskId) + 1);
+            
+            task.setParentTask(parentTask);
+            
+        }else{
+            task.setTaskOrder(taskRepository.getOrderByBlockId(createTaskDto.getBlockId()) + 1);
         }
 
+        task.setBlock(block);
         task = taskRepository.save(task);
 
-        return taskMapperService.mapEntityToResponse(task, new ResponseTaskDto());
+        return taskMapperService.mapEntityToResponse(task);
     }
 
 }

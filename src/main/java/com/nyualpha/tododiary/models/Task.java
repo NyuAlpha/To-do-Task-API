@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="task")
+@Table(name="tasks")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -81,4 +81,5 @@ public class Task {
     protected void onCreate() {
         this.createdAt = LocalDate.now();
     }
+
 }

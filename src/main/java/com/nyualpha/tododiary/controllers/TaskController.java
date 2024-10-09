@@ -16,7 +16,7 @@ import com.nyualpha.tododiary.services.ITaskService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api/tasks")
 public class TaskController {
 
     private ITaskService taskService;

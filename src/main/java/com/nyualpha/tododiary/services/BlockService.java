@@ -2,7 +2,9 @@ package com.nyualpha.tododiary.services;
 
 
 import java.util.List;
+import java.util.Comparator;
 import java.util.stream.Collectors;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,31 @@ public class BlockService implements IBlockService{
     }
 
 
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ResponseBlockDto> getAll() {
+        
+        return blockRepository.findAllWithTasks()
+                            .stream()
+                            .sorted(Comparator.comparing(Block::getCreatedAt))
+                            .map((block) -> blockMapperService.mapEntityToResponseSimple(block))
+                            .collect(Collectors.toList());
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public ResponseBlockDto getBlock(Long id) {
+
+        Block block = blockRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Block not found"));
+        return blockMapperService.mapEntityToResponseAll(block);
+        
+    }
+
+
+
     /*
      * Create a new block
      */
@@ -38,8 +65,10 @@ public class BlockService implements IBlockService{
         Block block = blockMapperService.mapDtoToEntity(createBlockDto, new Block());
         block = blockRepository.save(block);
 
-        return blockMapperService.mapEntityToResponse(block,new ResponseBlockDto());
+        return blockMapperService.mapEntityToResponseAll(block);
     }
+
+
 
 
     @Override
@@ -52,19 +81,11 @@ public class BlockService implements IBlockService{
         block = blockMapperService.mapDtoToEntity(updateBlockDto, block);
         block = blockRepository.save(block);
 
-        return blockMapperService.mapEntityToResponse(block,new ResponseBlockDto());
+        return blockMapperService.mapEntityToResponseAll(block);
     }
 
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ResponseBlockDto> getAll() {
-        
-        return blockRepository.findAll()
-                            .stream()
-                            .map((block) -> blockMapperService.mapEntityToResponse(block, new ResponseBlockDto()))
-                            .collect(Collectors.toList());
-    }
+
 
     
 
