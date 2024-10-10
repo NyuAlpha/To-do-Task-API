@@ -5,5 +5,5 @@ import com.nyualpha.tododiary.dto.task.ResponseTaskDto;
 
 public interface ITaskService {
 
-    ResponseTaskDto createTask(CreateTaskDto createTaskDto);
+    ResponseTaskDto createTask(Long blockId, Long parentTaksId, CreateTaskDto createTaskDto);
 }

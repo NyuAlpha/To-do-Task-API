@@ -6,7 +6,6 @@ import com.nyualpha.tododiary.models.attributes.Difficulty;
 import com.nyualpha.tododiary.models.attributes.Importance;
 import com.nyualpha.tododiary.models.attributes.Status;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +32,4 @@ public class CreateTaskDto {
 
     @DateTimeFormat(pattern = "YYYY-mm-dd")
     private LocalDate deadline;
-
-    @NotNull
-    private Long blockId;
-
-    private Long parentTaskId;
 }

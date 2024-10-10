@@ -31,28 +31,26 @@ public class TaskService implements ITaskService{
 
     @Override
     @Transactional
-    public ResponseTaskDto createTask(CreateTaskDto createTaskDto) {
+    public ResponseTaskDto createTask(Long blockId, Long parentTaskId,CreateTaskDto createTaskDto) {
         
 
-        Block block = blockRepository.findById(createTaskDto.getBlockId()).orElseThrow(
+        Block block = blockRepository.findById(blockId).orElseThrow(
             () ->new EntityNotFoundException("Block not found"));
         
         Task task = taskMapperService.mapDtoToEntity(createTaskDto);
         
 
-        Long parentTaskId = createTaskDto.getParentTaskId();
         if(parentTaskId != null){
 
-            Task parentTask = taskRepository.findById(createTaskDto.getParentTaskId()).orElseThrow(
+            Task parentTask = taskRepository.findById(parentTaskId).orElseThrow(
                 () ->new EntityNotFoundException("ParentTask not found"));
 
             /*First we assign the order to prever error DataIntegrityViolationException */
-            task.setTaskOrder(taskRepository.getOrderByBlockIdAndParentTask(createTaskDto.getBlockId(), parentTaskId) + 1);
-            
+            task.setTaskOrder(taskRepository.getOrderByBlockIdAndParentTask(blockId, parentTaskId) + 1);
             task.setParentTask(parentTask);
             
         }else{
-            task.setTaskOrder(taskRepository.getOrderByBlockId(createTaskDto.getBlockId()) + 1);
+            task.setTaskOrder(taskRepository.getOrderByBlockId(blockId) + 1);
         }
 
         task.setBlock(block);

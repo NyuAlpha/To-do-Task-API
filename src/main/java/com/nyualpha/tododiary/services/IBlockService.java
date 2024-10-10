@@ -9,12 +9,14 @@ import com.nyualpha.tododiary.dto.block.UpdateBlockDto;
 public interface IBlockService {
 
 
-    ResponseBlockDto createBlock(CreateBlockDto createBlockDto);
-
-    ResponseBlockDto updateBlock(UpdateBlockDto updateBlockDto);
-
     ResponseBlockDto getBlock(Long id);
 
     List<ResponseBlockDto> getAll();
+
+    ResponseBlockDto createBlock(CreateBlockDto createBlockDto);
+
+    ResponseBlockDto updateBlock(Long id, UpdateBlockDto updateBlockDto);
+
+    void delete(Long id);
 
 }

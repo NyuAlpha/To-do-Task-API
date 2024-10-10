@@ -43,6 +43,9 @@ public class BlockService implements IBlockService{
     }
 
 
+
+
+
     @Override
     @Transactional(readOnly = true)
     public ResponseBlockDto getBlock(Long id) {
@@ -73,15 +76,27 @@ public class BlockService implements IBlockService{
 
     @Override
     @Transactional
-    public ResponseBlockDto updateBlock(UpdateBlockDto updateBlockDto) {
+    public ResponseBlockDto updateBlock(Long id ,UpdateBlockDto updateBlockDto) {
 
-        Block block = blockRepository.findById(updateBlockDto.getId()).orElseThrow(
+        Block block = blockRepository.findById(id).orElseThrow(
                         () -> new EntityNotFoundException("Block not found"));
         
         block = blockMapperService.mapDtoToEntity(updateBlockDto, block);
         block = blockRepository.save(block);
 
         return blockMapperService.mapEntityToResponseAll(block);
+    }
+
+
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        
+        if(!blockRepository.existsById(id)){
+            throw new EntityNotFoundException("Block not found");
+        }
+        blockRepository.deleteById(id);
     }
 
 

@@ -9,6 +9,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
 import jakarta.persistence.EntityNotFoundException;
 
 import java.util.Map;
@@ -66,5 +68,25 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 
+    }
+
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Map<String, Object>> handleTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        Map<String, Object> body = new HashMap<>();
+        
+        String expectedType = ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "Unknown";
+    
+        // Verifica si se esperaba un Long y personaliza el mensaje
+        if (ex.getRequiredType() != null && ex.getRequiredType().equals(Long.class)) {
+            body.put("message", "Invalid input: " + ex.getValue() + ". A numeric ID is required.");
+        } else {
+            body.put("message", "Invalid input: " + ex.getValue() + ". A " + expectedType + " is required.");
+        }
+    
+        body.put("status", HttpStatus.BAD_REQUEST);
+        body.put("timestamp", LocalDateTime.now());
+    
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }
