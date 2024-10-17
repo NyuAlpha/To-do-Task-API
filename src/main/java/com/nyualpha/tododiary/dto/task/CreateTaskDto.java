@@ -2,8 +2,6 @@ package com.nyualpha.tododiary.dto.task;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.nyualpha.tododiary.models.attributes.Difficulty;
-import com.nyualpha.tododiary.models.attributes.Importance;
 import com.nyualpha.tododiary.models.attributes.Status;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -25,10 +23,6 @@ public class CreateTaskDto {
     private String description;
 
     private Status status;
-
-    private Importance importance;
-
-    private Difficulty difficulty;
 
     @DateTimeFormat(pattern = "YYYY-mm-dd")
     private LocalDate deadline;

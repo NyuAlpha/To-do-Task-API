@@ -93,15 +93,18 @@ public class BlockService implements IBlockService{
     @Transactional
     public void delete(Long id) {
         
-        if(!blockRepository.existsById(id)){
-            throw new EntityNotFoundException("Block not found");
-        }
+        checkIfExist(id);
         blockRepository.deleteById(id);
     }
 
 
 
-
-    
+    @Override
+    @Transactional(readOnly = true)
+    public void checkIfExist(Long id){
+        if(!blockRepository.existsById(id)){
+            throw new EntityNotFoundException("Block with id " + id + " not found");
+        }
+    }
 
 }

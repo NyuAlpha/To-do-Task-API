@@ -59,7 +59,7 @@ public class BlockMapperService {
 
         Map<Long, ResponseTaskDto> taskDTOMap = new HashMap<>();
         for (Task task : entity.getTasks()) {
-            ResponseTaskDto taskDTO = taskMapperService.mapEntityToResponse(task);
+            ResponseTaskDto taskDTO = taskMapperService.mapEntityToResponseSimple(task);
             taskDTOMap.put(task.getId(), taskDTO);
         }
 

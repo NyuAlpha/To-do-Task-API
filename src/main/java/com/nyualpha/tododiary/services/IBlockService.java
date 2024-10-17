@@ -19,4 +19,6 @@ public interface IBlockService {
 
     void delete(Long id);
 
+    void checkIfExist(Long id);
+
 }

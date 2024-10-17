@@ -3,6 +3,8 @@ package com.nyualpha.tododiary.controllers;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +29,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+
+
+    @GetMapping("{taskId}")
+    public ResponseEntity<ResponseTaskDto> task(@PathVariable Long blockId, @PathVariable Long taskId){
+
+        return ResponseEntity.ok()
+                            .body(taskService.getTask(taskId));
+    }
+
     
 
     @PostMapping
-    public ResponseEntity<ResponseTaskDto> createTask(
+    public ResponseEntity<ResponseTaskDto> create(
                                     @PathVariable Long blockId,
                                     @RequestParam(value = "parentTaskId", required = false) Long parentTaskId, 
                                     @Valid @RequestBody CreateTaskDto createTaskDto){
@@ -44,6 +55,14 @@ public class TaskController {
 
         return ResponseEntity.created(location)
                             .body(responseDto);
+    }
+
+
+    @DeleteMapping("{taskId}")
+    public ResponseEntity<Void> delete(@PathVariable Long blockId, @PathVariable Long taskId){
+
+        taskService.delete(blockId,taskId);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -3,11 +3,7 @@ package com.nyualpha.tododiary.models;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.nyualpha.tododiary.models.attributes.Difficulty;
-import com.nyualpha.tododiary.models.attributes.Importance;
 import com.nyualpha.tododiary.models.attributes.Status;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,12 +44,6 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @Enumerated(EnumType.STRING)
-    private Importance importance;
-
-    @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
 
     @Column(nullable = false)
     private Integer taskOrder;
